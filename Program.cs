@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,7 +61,7 @@ namespace ShoppingBasketDemo
             thisStore.ListItems();
             //ask user to choose
             int itemID = activeConsole.IntPrompt("Please select the item to add your cart by ID", 0, thisStore.getIDKeys());
-            int quanity = activeConsole.IntPrompt("Please type (as a Whole Number) the quantity you wish to buy of " + thisStore.getItem(itemID).Name, 0, 20);
+            int quanity = activeConsole.IntPrompt("Please type (as a Whole Number) the quantity you wish to buy of " + thisStore.getItem(itemID).Name, 0, 50);
             if (quanity > 0)
             {//add to cart (x) times
                 for (int i = 0; i < quanity; i++)
@@ -80,9 +81,11 @@ namespace ShoppingBasketDemo
             myCart.DisplayCart();
             if (myCart.GetItemsCount() > 0)
             {
-                int itemID = activeConsole.IntPrompt("Please select the item to remove from your cart by ID", 0, Item.itemCount);
+                ArrayList removalList = activeConsole.csvPrompt("Please select the item to remove from your cart by ID", 0, Item.itemCount);
+                //int itemID = activeConsole.IntPrompt("Please select the item to remove from your cart by ID", 0, Item.itemCount);
                // int quanity = activeConsole.IntPrompt("Please type (as a Whole Number) the quantity you wish to remove from your cart for " + myCart.GetItemsCount(itemID).Name, 0, 20);
                 //for (int i = 0; i < quanity; i++)
+                foreach(int itemID in removalList)
                     myCart.RemoveFromCart(itemID);
             }
             else

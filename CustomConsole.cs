@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace ShoppingBasketDemo
 {
 
-    
+
     class CustomConsole
     {
-    //------------------(Constructors)------------------
+        //------------------(Constructors)------------------
         /// <summary>
         /// Initialise a customised Console, setting title and allowing sub functions to be called
         /// </summary>
@@ -20,7 +20,7 @@ namespace ShoppingBasketDemo
             Console.Title = "Shopping Cart Code Demo";
         }
 
-    //------------------(Custom Writes)------------------
+        //------------------(Custom Writes)------------------
         /// <summary>
         /// Types '>>>' in color green before changing to white for input.
         /// <c>TDLR: </c> console.ResetColor();
@@ -83,7 +83,7 @@ namespace ShoppingBasketDemo
                 }
                 Error("\tError:\n Please confirm the number you entered is listed for a product");
             }
-            
+
         }
         /// <summary>
         /// Similar to key version, performs a range check on int value entered 
@@ -106,7 +106,7 @@ namespace ShoppingBasketDemo
                     //range check
                     if (input >= _min && input < _max)
                     {
-                        return input; 
+                        return input;
                     }
                 }
                 Error("\tError:\n Please confirm the number you entered is between " + _min + " and " + _max);
@@ -191,5 +191,24 @@ namespace ShoppingBasketDemo
             }
             return itemsFound;
         }
+        public ArrayList csvPrompt(String _prompt, int _min, int _max)
+        {
+            ArrayList refIDs = new ArrayList();
+            int val;
+            Console.WriteLine("\n" + _prompt + "\n\tMultiple items can be selected as follows: 1, 2, 5");
+
+            String input = Console.ReadLine();
+            String[] inputArray = input.Split(new string[] { ", " }, StringSplitOptions.None);
+            Console.ResetColor();
+            foreach (String aInput in inputArray)
+            {
+                if (int.TryParse(aInput, out val))
+                {
+                    if (val > _min && val < _max)
+                        refIDs.Add(val);
+                }
+            }
+            return refIDs;    
+        } 
     }//End class
 }
